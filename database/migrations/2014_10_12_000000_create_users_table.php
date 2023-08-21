@@ -16,8 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->integer('mobile');
+            $table->string('pan_card');
+            $table->string('aadhar_card');
+            $table->text('address');
             $table->string('password');
+            $table->enum('role',['admin', 'user'])->default('user');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

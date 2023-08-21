@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->integer('loan_amount');
-            $table->integer('annual_income');
+            $table->decimal('actual_loan', 10, 2); 
+            $table->decimal('interest_rate', 5, 2)->default(8);
+            $table->decimal('total_amount', 10, 2)->nullable();
+            $table->decimal('weekly_emi', 10, 2)->nullable();
             $table->string('term');
-            $table->enum('status', ['Pending', 'Approved'])->default('Pending');
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers');
-            $table->timestamps();
+            $table->enum('status', ['Pending', 'Approved', 'Paid'])->default('Pending');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
